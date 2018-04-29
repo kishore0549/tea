@@ -1,0 +1,55 @@
+<div [@routerTransition]>
+<app-page-header [heading]="'Challan Details'" [icon]="'fa-th-list'" ></app-page-header>
+    <mat-card>
+        <!--        <div class="card-header">Enter Challan Details</div>-->
+        <mat-card-content  *ngIf="details">
+            <table class="table table-striped" >
+                <tbody>
+                <tr>
+                    <td>Challan #</td> <td>{{details._id}}</td> <td>Name </td> <td>{{details.name}}</td> <td> Address</td> <td> {{details.address}}</td>
+                </tr>
+                <tr>
+                    <td>Location</td> <td>{{details.location}}</td> <td>Zone </td> <td>{{details.zone}}</td> <td> Status</td> <td> {{details.status}}</td>
+                </tr>
+                <tr>
+                    <td>Vehicle Number</td><td>{{details.vehicle.number}}</td> <td>Type</td><td>{{details.vehicle.type}}</td><td>Segment</td><td>{{details.vehicle.segment}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="page-break"></div>
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Offence</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let offence of details?.offences">
+                        <td> {{offence.offence}}</td>
+                        <td> {{offence.amount}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>Total Aamount</td>
+                        <td>{{details.total}}</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </mat-card-content>
+        <div class="card-footer text-md-center">
+
+            <button (click)="printChallan()">Print</button></div>
+    </mat-card>
+
+
+
+
+
+</div>
+

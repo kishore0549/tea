@@ -1,0 +1,127 @@
+<div [@routerTransition]>
+<div class="row">
+    <div class="col col-xl-12 col-lg-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                All Challans
+            </div>
+            <div class="card-body">
+
+           <!--   <ng2-smart-table [settings]="settings" [source]="items"></ng2-smart-table>-->
+                <data-table id="voilation-grid"
+                                           [items]="items"
+                                           [itemCount]="itemCount"
+                                           (reload)="reloadItems($event)"
+                                           [expandableRows]="true"
+                                           (rowClick)="rowClick($event)"
+                                           (rowDoubleClick)="rowDoubleClick($event)"
+                                           [rowTooltip]="rowTooltip"
+                                           [selectOnRowClick]="true"
+                                           [substituteRows]="false">
+              <ng-template #dataTableExpand let-item="item">
+                <div class="row"><div class="col-sm-6"><label>Name : </label> <span> {{item.name}}</span></div> <div class="col-sm-6"><label>Address : </label> <span> {{item.address}}</span></div></div>
+                <div class="row"><div class="col-sm-6"><label>Zone : </label> <span> {{item.zone}}</span></div> <div class="col-sm-6"><label>Location : </label> <span> {{item.location}}</span></div></div>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Violation</th>
+                    <th>Amount</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let violation of item.offences" [class.table-active]="!violation.status">
+                    <th scope="row"> {{violation._id}}</th>
+                    <td>{{violation.offence}}</td>
+                    <td>{{violation.amount}}</td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </ng-template>
+              <data-table-column
+                [property]="'_id'"
+                [header]="'Violation #'"
+                [sortable]="true"
+                [resizable]="true">
+              </data-table-column>
+              <data-table-column
+                [header]="'Vehicle Number'"
+                [sortable]="true"
+                [resizable]="true">
+                <ng-template #dataTableCell let-item="item">
+                  <div *ngIf="item.vehicle">
+                    {{item.vehicle.number}}
+                  </div>
+
+                  <div *ngIf="!item.vehicle">
+                    Select Vehicle Number
+                  </div>
+                </ng-template>
+              </data-table-column>
+              <data-table-column
+                [property]="'name'"
+                [header]="'Name'"
+                [sortable]="true"
+                [resizable]="true">
+              </data-table-column>
+              <!-- <data-table-column
+                   [property]="'address'"
+                   [header]="'Address'"
+                   [sortable]="true"
+                   [resizable]="true">
+               </data-table-column>
+               <data-table-column
+                   [property]="'zone'"
+                   [header]="'Zone'"
+                   [sortable]="true"
+                   [resizable]="true">
+               </data-table-column>
+
+               <data-table-column
+                   [property]="'location'"
+                   [header]="'Location'"
+                   [sortable]="true"
+                   [resizable]="true">
+               </data-table-column>-->
+              <data-table-column
+                [property]="'createdAt'"
+                [header]="'Date'"
+                [sortable]="true">
+                <ng-template #dataTableCell let-item="item">
+                  <span>{{item.createdAt | date:'yyyy-MM-dd'}}</span>
+                </ng-template>
+              </data-table-column>
+              <data-table-column
+                property="status"
+                header="Status"
+                width="150px">
+              </data-table-column>
+              <!--<data-table-column
+                  [property]="'vehicleType'"
+                  [header]="'Vehicle Type'"
+                  [width]="100"
+                  [resizable]="true">
+                  <ng-template #dataTableHeader let-item="item">
+                      <span style="color: rgb(232, 0, 0)">Active</span>
+                  </ng-template>
+                  <ng-template #dataTableCell let-item="item">
+      <span style="color: grey">
+      <span class="fa fa-check-square" *ngIf="item.status === 'PENDING'"> </span>
+
+      </span>
+                  </ng-template>
+              </data-table-column>-->
+              <data-table-column
+                [property]="'total'"
+                [header]="'Total Amount'"
+                [sortable]="true"
+                [resizable]="true">
+              </data-table-column>
+            </data-table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

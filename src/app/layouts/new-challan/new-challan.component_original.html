@@ -1,0 +1,299 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Enter Challan Details'" [icon]="'fa-edit'"></app-page-header>
+    <div class="chat-panel card card-default">
+<!--        <div class="card-header">Enter Challan Details</div>-->
+        <div class="card-body">
+            <div class="row">
+                <div class="col col-sm-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--  Long distant shot start-->
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="longDistanceShot" class="col-md-4 col-form-label-sm">Long Distance
+                                            Shot </label>
+                                        <div class="col-md-7" >
+                                            <input required  type="file" class="form-control-sm " id="longDistanceShot"
+                                                   name="longDistanceShot"
+                                                   (change)="setLongDistanceShot($event.target.files)" #fileInput
+                                                   single />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  Long distant shot end-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="vehicleType" class="col-md-4 col-form-label-sm">Vehicle Type</label>
+                                        <div class="col-md-7">
+                                            <ng-select [items]="vehicleTypes"
+                                                       bindLabel="type"
+                                                       groupBy="segment"
+                                                       placeholder="Select Vehicle Type"
+                                                       [(ngModel)]="selectedVehicleType" id="vehicleType"
+                                                       class="form-control-sm">
+
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="location" class="col-md-4 col-form-label-sm">Location</label>
+                                        <div class="col-md-7">
+                                            <ng-select [items]="locations"
+                                                       bindLabel="location"
+                                                       groupBy="zone_name"
+                                                       placeholder="Select Location"
+                                                       [(ngModel)]="selectedLocation" id="location"
+                                                       (change)="populateZone()"
+                                                       class="form-control-sm">
+
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    <div> {{item.location}}</div>
+                                                </ng-template>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <!--  Short distant shot start-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="shortDistanceShot" class="col-md-4 col-form-label-sm">CloseUp
+                                            Shot</label>
+                                        <div class="col-md-7">
+                                            <input type="file" class="form-control-sm" id="shortDistanceShot"
+                                                   name="shortDistanceShot"
+                                                   (change)="setShortDistanceShot($event.target.files)" #fileInput
+                                                   single>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  Short distant shot end-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="zone" class="col-md-4 col-form-label-sm">Zone</label>
+                                        <div class="col-md-7">
+
+                                            <ng-select [items]="zones"
+                                                       bindLabel="zone"
+                                                       bindValue="_id"
+                                                       placeholder="Select Zone"
+                                                       [(ngModel)]="selectedZone" id="zone" class="form-control-sm">
+
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    <div> {{item.zone}}</div>
+                                                </ng-template>
+                                            </ng-select>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="date" class="col-md-4 col-form-label-sm">Offence Date</label>
+                                        <div class="col-md-7">
+                                            <div class="input-group datepicker-input">
+                                                <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                                                                [(ngModel)]="challanDate" required id="date"
+                                                                class="form-control-sm"></my-date-picker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- row -->
+                </div>  <!-- card body -->
+
+            </div>
+            <div class="chat-panel card card-default">
+                <div class="card-header"> Owner Details</div>
+                <div class="card-body" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label for="vehicle_numner" class="col-sm-2 col-form-label-sm">Vehicle
+                                    Number / Licence</label>
+                                <div class="col-md-2">
+                                    <input class="form-control-sm form-control " name="s" type="search"
+                                           id="vehicle_numner" placeholder="Enter vehicle number" [(ngModel)]="vehicleNo" >
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <button class="btn btn-primary btn-sm m-r-xs " style="visibility: visible;">
+                                        <i class="fa fa-info-circle" aria-hidden="true">&nbsp;</i>
+                                        <span class="hidden-sm hidden-xs ng-binding">Get Details</span>
+                                    </button>
+                                   <!-- <button class="rounded-btn" type="button" (click)="openNewDialog()" style="font-size: 0.7rem">Get Details</button>-->
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col col-sm-6">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class=" row">
+                                                <label for="owner_name" class="col-md-4 col-form-label-sm">Owner
+                                                    Name </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control form-control-sm" id="owner_name"
+                                                           [(ngModel)]="vehicleDetails.name" name="owner_name"
+                                                           disabled>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-12">
+                                            <div class=" row">
+                                                <label for="address" class="col-md-4 col-form-label-sm">Owner
+                                                    Address</label>
+                                                <div class="col-md-7">
+                                            <textarea class="form-control form-control-sm" id="address" name="address"
+                                                      [(ngModel)]="vehicleDetails.address" rows="3"
+                                                      disabled> </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div> <!-- row -->
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="chassis" class="col-md-4 col-form-label-sm">Chassis Number</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control form-control-sm" id="chassis"
+                                                   [(ngModel)]="vehicleDetails.chasis" name="chassis" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" row">
+                                        <label for="model" class="col-md-4 col-form-label-sm">Model</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control form-control-sm" id="model"
+                                                   [(ngModel)]="vehicleDetails.model" name="chassis" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class=" row">
+                                            <label for="make" class="col-md-4 col-form-label-sm">Make</label>
+                                            <div class="col-md-7">
+
+                                                <input type="text" class="form-control form-control-sm" id="make"
+                                                       [(ngModel)]="vehicleDetails.make"
+                                                       name="chassis" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-md-right">
+                            <button type="button" class="btn btn-outline-primary btn-sm " id="reportProblem"
+                                    name="chassis">
+                                <i class="fa fa-exclamation-circle"></i> Report Problem
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-outline-danger btn-sm " id="blacklist"
+                                    name="chassis">
+                                <i class="fa fa-ban"></i>
+                                Blacklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div> &nbsp;</div>
+            <div class="chat-panel card card-default">
+                <div class="card-header"> Select Offences</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="">
+                                <ng-select [items]="offences"
+                                           bindLabel="offence"
+                                           groupBy="related"
+                                           [multiple]=true
+                                           [searchable]=true
+                                           hideSelected=true
+                                           placeholder="Select Offence"
+                                           dropdownPosition="auto"
+                                           [(ngModel)]="selectedOffence" id="offence" class=" input-underline input-lg">
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        <div> {{item.offence}}</div>
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row pull-right">
+                        <div class="col-md-12" >
+
+                            <button type="submit" class="btn  btn-primary btn-sm" id="create" name="createChallan"
+                                    (click)="createChallan()">
+                                <i class="fa fa-plus-circle"> &nbsp;</i> Create Challan
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn  btn-sm" id="clear" name="chassis" (click)="clear()">
+                                <i class="fa fa-times-circle">&nbsp;</i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.row -->
+
+            <!-- /.row -->
+
+            <!-- /.row -->
+        </div>
+    </div>
+</div>

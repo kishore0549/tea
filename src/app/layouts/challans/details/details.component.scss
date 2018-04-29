@@ -1,0 +1,29 @@
+@media print {
+
+
+    #printing-area {
+        visibility: visible;
+    }
+
+    #non-printing-area {
+        display: none;
+    }
+
+    .card-footer{
+        display: none
+    }
+
+    .page-break	{ display: block; page-break-before: always; }
+
+
+}
+
+@media screen {
+    #printing-area {
+        visibility: hidden;
+    }
+
+    #non-printing-area {
+        visibility: visible;
+    }
+}

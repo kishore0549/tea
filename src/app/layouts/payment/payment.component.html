@@ -1,0 +1,80 @@
+<div [@routerTransition]>
+  <div class="card card-outline-primary">
+    <div class="card-body ">
+      <h4 class="card-title">Find challan</h4>
+      <form [formGroup]="findChallan" (submit)="find()" [class.was-validate]="findChallan.invalid" novalidate>
+        <div classs="form-row">
+          <input type="text" class="form-control" [formControl]="inputQuery" placeholder="Enter vehicle number"
+                 required>
+          <div *ngIf="inputQuery.invalid && inputQuery.touched && inputQuery.dirty && !inputQuery.pristine"
+               [class.text-danger]="inputQuery.invalid && inputQuery.touched && inputQuery.dirty && !inputQuery.pristine">
+            Required.
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-outline-primary" (click)="find()"><i class="fa fa-search"></i> Find</button>
+    </div>
+  </div>
+
+
+  <div class="card card-outline-primary" *ngIf="challans">
+    <div class="card-body">
+      <div class="card-title">Challan details  </div>
+        <table class="table color-table info-table ">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Challan#</th>
+            <th scope="col">Location</th>
+            <th scope="col">Zone</th>
+            <th scope="col">Date</th>
+            <th scope="col">Amount</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let challan of challans; let i = index">
+            <td scope="row">{{i+1}}</td>
+            <td><a (click)="openLg(content)">{{ challan._id }}</a></td>
+            <td>{{ challan.location }}</td>
+            <td>{{ challan.zone }}</td>
+            <td>{{ challan.createdAt | date }}</td>
+            <td><i class="fa fa-fw fa-inr"></i> {{ challan.total }}</td>
+
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Offences</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div *ngFor="let offence of challan.offences" class="row">
+                  <div class="col-6">{{offence.offence}}</div>
+                  <div class="col-6">{{offence.related}}</div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+              </div>
+            </ng-template>
+
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr class="font-weight-bold">
+            <td class="text-right"  colspan="5">Total Amount</td>
+            <td><i class="fa fa-fw fa-inr"></i> {{ challans | sum:'total' }}</td>
+          </tr>
+          </tfoot>
+        </table>
+    </div>
+    <div class="card-footer">
+      <div class="btn-group">
+             <button class="btn btn-primary"><i class="fa fa-fw fa-inr"></i> Payment</button>
+      </div>
+    </div>
+  </div>
+
+</div>

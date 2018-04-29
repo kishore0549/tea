@@ -1,0 +1,269 @@
+<div [@routerTransition]>
+  <div class="chat-panel card card-default">
+    <!--        <div class="card-header">Enter Challan Details</div>-->
+    <div class="card-body">
+
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="longDistanceShot">Long distance shot</label>
+<!--
+          <input required  type="file"  id="longDistanceShot"
+                 name="longDistanceShot"
+                 (change)="setLongDistanceShot($event.target.files)" #fileInput
+                 single class="form-control"/>-->
+          <div class="input-group mb-3">
+              <div class="custom-file">
+              <input type="file" class="custom-file-input" id="longDistanceShot"  (change)="setLongDistanceShot($event.target.files)" #fileInput
+                     single>
+              <label class="custom-file-label" for="longDistanceShot">Choose file</label>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-4 mb-3">
+          <label for="shortDistanceShot">Closeup shot</label>
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="shortDistanceShot"
+              name="shortDistanceShot"
+              (change)="setShortDistanceShot($event.target.files)" #fileInput
+              single>
+              <label class="custom-file-label" for="shortDistanceShot">Choose file</label>
+            </div>
+          </div>
+         <!-- <input type="file"  id="shortDistanceShot"
+                 name="shortDistanceShot"
+                 (change)="setShortDistanceShot($event.target.files)" #fileInput
+                 single class="form-control">-->
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="vehicleType">Vehicle type</label>
+          <ng-select [items]="vehicleTypes"
+                     bindLabel="type"
+                     groupBy="segment"
+                     placeholder="Select Vehicle Type"
+                     [(ngModel)]="selectedVehicleType" id="vehicleType"
+                     name="vehicleType">
+
+          </ng-select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="location">Location</label>
+          <ng-select [items]="locations"
+                     bindLabel="location"
+                     groupBy="zone_name"
+                     placeholder="Select Location"
+                     [(ngModel)]="selectedLocation" id="location"
+                     (change)="populateZone()"
+                     >
+
+            <ng-template ng-option-tmp let-item="item">
+              <div> {{item.location}}</div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="Zone">Zone</label>
+          <ng-select [items]="zones"
+                     bindLabel="zone"
+                     bindValue="_id"
+                     placeholder="Select Zone"
+                     [(ngModel)]="selectedZone" id="Zone" >
+            <ng-template ng-option-tmp let-item="item">
+              <div> {{item.zone}}</div>
+            </ng-template>
+          </ng-select>
+      </div>
+        <div class="col-md-4 mb-3">
+          <label for="date">Offence Date</label>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" id="date" autoClose="true">
+              <div class="input-group-addon" (click)="d.toggle()">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="chat-panel card card-default">
+        <div class="card-header"> Owner Details</div>
+        <div class="card-body" >
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <label for="vehicle_numner" class="col-sm-2 col-form-label-sm">Vehicle
+                  Number / Licence</label>
+                <div class="col-md-2">
+                  <input class="form-control-sm form-control " name="s" type="search"
+                         id="vehicle_numner" placeholder="Enter vehicle number" [(ngModel)]="vehicleNo" >
+                </div>
+                <div class="col-md-2 col-sm-2">
+                  <button class="btn btn-primary btn-sm m-r-xs " style="visibility: visible;">
+                    <i class="fa fa-info-circle" aria-hidden="true">&nbsp;</i>
+                    <span class="hidden-sm hidden-xs ng-binding">Get Details</span>
+                  </button>
+                  <!-- <button class="rounded-btn" type="button" (click)="openNewDialog()" style="font-size: 0.7rem">Get Details</button>-->
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+
+            <div class="col col-sm-6">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class=" row">
+                        <label for="owner_name" class="col-md-4 col-form-label-sm">Owner
+                          Name </label>
+                        <div class="col-md-7">
+                          <input type="text" class="form-control form-control-sm" id="owner_name"
+                                 [(ngModel)]="vehicleDetails.name" name="owner_name"
+                                 disabled>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row ">
+                    <div class="col-md-12">
+                      <div class=" row">
+                        <label for="address" class="col-md-4 col-form-label-sm">Owner
+                          Address</label>
+                        <div class="col-md-7">
+                                            <textarea class="form-control form-control-sm" id="address" name="address"
+                                                      [(ngModel)]="vehicleDetails.address" rows="3"
+                                                      disabled> </textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div> <!-- row -->
+
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class=" row">
+                    <label for="chassis" class="col-md-4 col-form-label-sm">Chassis Number</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control form-control-sm" id="chassis"
+                             [(ngModel)]="vehicleDetails.chasis" name="chassis" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class=" row">
+                    <label for="model" class="col-md-4 col-form-label-sm">Model</label>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control form-control-sm" id="model"
+                             [(ngModel)]="vehicleDetails.model" name="chassis" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class=" row">
+                    <label for="make" class="col-md-4 col-form-label-sm">Make</label>
+                    <div class="col-md-7">
+
+                      <input type="text" class="form-control form-control-sm" id="make"
+                             [(ngModel)]="vehicleDetails.make"
+                             name="chassis" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-12 text-md-right">
+              <button type="button" class="btn btn-outline-primary btn-sm " id="reportProblem"
+                      name="chassis">
+                <i class="fa fa-exclamation-circle"></i> Report Problem
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-outline-danger btn-sm " id="blacklist"
+                      name="chassis">
+                <i class="fa fa-ban"></i>
+                Blacklist
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div> &nbsp;</div>
+      <div class="chat-panel card card-default">
+        <div class="card-header"> Select Offences</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="">
+                <ng-select [items]="offences"
+                           bindLabel="offence"
+                           groupBy="related"
+                           [multiple]=true
+                           [searchable]=true
+                           hideSelected=true
+                           placeholder="Select Offence"
+                           dropdownPosition="auto"
+                           [(ngModel)]="selectedOffence" id="offence" class=" input-underline input-lg">
+
+                  <ng-template ng-option-tmp let-item="item">
+                    <div> {{item.offence}}</div>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row pull-right">
+            <div class="col-md-12" >
+
+              <button type="submit" class="btn  btn-primary btn-sm" id="create" name="createChallan"
+                      (click)="createChallan()">
+                <i class="fa fa-plus-circle"> &nbsp;</i> Create Challan
+              </button>
+              &nbsp;
+              <button type="button" class="btn  btn-sm" id="clear" name="chassis" (click)="clear()">
+                <i class="fa fa-times-circle">&nbsp;</i> Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- /.row -->
+
+      <!-- /.row -->
+
+      <!-- /.row -->
+    </div>
+  </div>
+</div>
